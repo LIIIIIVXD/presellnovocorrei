@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rastreamento de Entrega</title>
+  <title>Consulta de Entrega</title>
 
-  <!-- UTMify para rastreamento -->
+  <!-- UTMify -->
   <script
     src="https://cdn.utmify.com.br/scripts/utms/latest.js"
     data-utmify-prevent-xcod-sck
     data-utmify-prevent-subids
-    async
-    defer
+    async defer
   ></script>
 
   <style>
@@ -19,21 +18,19 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: linear-gradient(to bottom, #fffbe6, #ffffff);
+      background: linear-gradient(to bottom, #e3f2fd, #ffffff);
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
     }
 
     .header {
-      width: 100%;
-      background-color: #1976d2;
+      background-color: #1565c0;
       color: white;
-      padding: 12px;
       text-align: center;
+      padding: 14px;
       font-size: 15px;
       font-weight: 500;
-      white-space: nowrap;
     }
 
     .conteudo {
@@ -42,40 +39,38 @@
       justify-content: center;
       align-items: center;
       padding-top: 5vh;
-      position: relative;
-      z-index: 1;
     }
 
     .caixa {
-      background-color: #fff176;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      text-align: center;
-      max-width: 360px;
+      background-color: #bbdefb;
+      padding: 36px 28px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 370px;
       width: 100%;
-      animation: fadeIn 0.7s ease-in-out;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
     }
 
     .caixa p {
-      font-size: 18px;
+      font-size: 17px;
       color: #333;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .caixa .destaque {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: bold;
-      color: #222;
-      margin-bottom: 20px;
+      color: #1a237e;
+      margin-bottom: 18px;
     }
 
     .botao {
-      background-color: #4caf50;
+      background-color: #0288d1;
       color: white;
       border: none;
-      padding: 14px 30px;
-      font-size: 17px;
+      padding: 13px 28px;
+      font-size: 16px;
       border-radius: 10px;
       cursor: pointer;
       animation: pulse 2s infinite;
@@ -85,21 +80,21 @@
 
     .botao:hover {
       animation: none;
-      background-color: #43a047;
+      background-color: #0277bd;
       transform: scale(1.05);
     }
 
     .links-legais {
       margin-top: 25px;
       font-size: 14px;
-      color: #555;
+      color: #444;
     }
 
     .links-legais a {
-      color: #2e7d32;
+      color: #01579b;
       text-decoration: underline;
-      cursor: pointer;
       margin: 0 8px;
+      cursor: pointer;
     }
 
     .modal {
@@ -110,30 +105,41 @@
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
       background-color: rgba(0,0,0,0.6);
     }
 
     .modal-content {
-      background-color: #fff;
+      background-color: white;
       margin: 10% auto;
-      padding: 20px;
+      padding: 22px;
       border-radius: 10px;
       width: 90%;
       max-width: 500px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+      animation: zoomIn 0.4s ease;
+    }
+
+    @keyframes zoomIn {
+      from {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .close {
-      color: #aaa;
       float: right;
       font-size: 24px;
       font-weight: bold;
+      color: #aaa;
       cursor: pointer;
     }
 
     .close:hover {
-      color: black;
+      color: #000;
     }
 
     .fundo-imagem {
@@ -141,9 +147,9 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      max-height: 220px;
+      max-height: 210px;
       object-fit: cover;
-      opacity: 0.9;
+      opacity: 0.85;
       z-index: 0;
       pointer-events: none;
     }
@@ -155,48 +161,53 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(25px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); }
+      0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
   <div class="header">
-    Clique no botão para rastrear sua entrega
+    Acompanhe o andamento da sua encomenda em tempo real!
   </div>
 
   <div class="conteudo">
     <div class="caixa">
-      <p class="destaque">🚚 Deseja rastrear sua entrega?</p>
-      <p>📦 Verifique se sua encomenda já foi atualizada no sistema.</p>
-      <p>📍 Acompanhe o trajeto até sua casa com praticidade e segurança.</p>
-      <p>🧾 Consulte o status com apenas um clique abaixo:</p>
-      
-      <button class="botao">Clique aqui para consultar</button>
+      <p class="destaque">🔎 Localize sua entrega rapidamente</p>
+      <p>📬 Veja se já temos atualizações no sistema.</p>
+      <p>🗺️ Descubra o caminho que sua encomenda percorreu.</p>
+      <p>🔐 É simples, seguro e rápido. Clique abaixo:</p>
+
+      <button class="botao">Consultar rastreio agora</button>
 
       <div class="links-legais">
-        <a onclick="abrirModal('modalTermos')">Termos de Serviço</a> |
-        <a onclick="abrirModal('modalPrivacidade')">Política de Privacidade</a>
+        <a href="#" onclick="abrirModal('modalTermos'); return false;">Termos</a> |
+        <a href="#" onclick="abrirModal('modalPrivacidade'); return false;">Privacidade</a>
       </div>
     </div>
   </div>
 
-  <!-- Imagem exibida apenas em celular -->
-  <img src="correios-fundo.png" class="fundo-imagem" alt="imagem de fundo" />
+  <img src="fundo.png" class="fundo-imagem" alt="imagem de fundo" />
 
   <!-- Modal Termos -->
   <div id="modalTermos" class="modal">
     <div class="modal-content">
       <span class="close" onclick="fecharModal('modalTermos')">&times;</span>
-      <h2>Termos de Serviço</h2>
-      <p>Ao acessar este site, você concorda com nossos termos de uso. Os dados fornecidos serão utilizados apenas para fins de consulta de entrega. É proibido copiar, reproduzir ou redistribuir o conteúdo sem autorização.</p>
+      <h2>📘 Termos de Serviço</h2>
+      <p>
+        Este site oferece acesso a um e-book informativo sobre como rastrear encomendas internacionais de forma eficaz. 
+        Ao utilizar nossos serviços, você concorda que as informações fornecidas são para fins educacionais e orientativos.
+      </p>
+      <p>
+        Não garantimos a entrega de pacotes nem substituímos serviços de transporte. O e-book visa esclarecer dúvidas sobre processos, 
+        prazos e status de encomendas vindas do exterior. A reprodução ou redistribuição deste conteúdo sem permissão é proibida.
+      </p>
     </div>
   </div>
 
@@ -204,33 +215,36 @@
   <div id="modalPrivacidade" class="modal">
     <div class="modal-content">
       <span class="close" onclick="fecharModal('modalPrivacidade')">&times;</span>
-      <h2>Política de Privacidade</h2>
-      <p>Levamos sua privacidade a sério. Seus dados são armazenados de forma segura e utilizados exclusivamente para oferecer o serviço de rastreamento solicitado. Não compartilhamos informações com terceiros.</p>
+      <h2>🔒 Política de Privacidade</h2>
+      <p>
+        Valorizamos sua privacidade. Os dados coletados, como e-mail ou identificadores de sessão, são utilizados exclusivamente para oferecer 
+        o conteúdo informativo sobre o rastreamento de encomendas internacionais por meio de nosso e-book gratuito.
+      </p>
+      <p>
+        Não coletamos informações sensíveis e não compartilhamos seus dados com terceiros. Toda navegação é protegida e usada somente 
+        para fins relacionados à entrega do material educativo.
+      </p>
     </div>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Redireciona com parâmetros da URL
       document.querySelector(".botao").addEventListener("click", function () {
         const params = window.location.search;
-        const destino = "https://www.rasteriobr-servico.site/consultar.htm";
+        const destino = "./andamento/index.htm";
         window.location.href = destino + params;
       });
 
-      // Abrir modal
       window.abrirModal = function(id) {
         const modal = document.getElementById(id);
         if (modal) modal.style.display = "block";
       };
 
-      // Fechar modal
       window.fecharModal = function(id) {
         const modal = document.getElementById(id);
         if (modal) modal.style.display = "none";
       };
 
-      // Fechar ao clicar fora
       window.addEventListener("click", function (event) {
         if (event.target.classList.contains("modal")) {
           event.target.style.display = "none";
